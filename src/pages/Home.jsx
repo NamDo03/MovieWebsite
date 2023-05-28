@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Main from "../components/Main";
-import List from "../components/List";
+import Slider from "../components/Slider";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, getGenres } from "../store";
 
 const Home = () => {
+  const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
+  const movies = useSelector((state) => state.netflix.movies);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getGenres());
+  });
+
+  useEffect(() => {
+    if (genresLoaded) dispatch(fetchMovies({ type: "all" }));
+  });
   return (
     <div>
-      <Main />
-      <List listId={1} title="Netflix Originals"/>
-      <List listId={2} title="UpComing" />
-      <List listId={3} title="Trending" />
-      <List listId={4} title="Top Rated" />
+      <Main movies={movies}/>
+      <Slider movies={movies} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        '3xl': '0 15px 25px rgba(1,1,1,0.6)',
+        '3xl': '0 3px 10px rgba(0,0,0,0.75)',
       },
       backgroundColor: {
         'netflix': '#141414',

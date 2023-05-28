@@ -1,22 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import requests from "../ApiRequest";
+import React, {useState } from "react";
 import ReactPlayer from "react-player";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { VscMute, VscUnmute } from "react-icons/vsc";
 
-const Main = () => {
-  const [movies, setMovies] = useState([]);
+const Main = ({movies}) => {
   const [isMuted, setIsMuted] = useState(false);
-  const movie = movies[Math.floor(Math.random() * movies.length)];
-
-  useEffect(() => {
-    axios.get(requests.requestPopular).then((response) => {
-      setMovies(response.data.results);
-    });
-  }, []);
-  console.log(movie);
+  
   return (
     <div className="w-full h-[650px] text-white">
       <div className="w-full h-full">
@@ -27,16 +17,11 @@ const Main = () => {
           height="100%"
           volume={1}
           muted={isMuted}
-          url="https://vimeo.com/342154301"
+          url="https://vimcom/342154301"
         />
-        {/* <img
-          className="object-cover w-full h-full"
-          src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-          alt={movie?.title}
-        /> */}
         <div className="absolute w-[40%] top-[45%] p-4 md:p-8">
-          <h1 className="text-2xl mb-3 font-bold">{movie?.title}</h1>
-          <p>{movie?.overview}</p>
+          <h1 className="text-2xl mb-3 font-bold">{movies.name}</h1>
+          <p>afsdddddddddddddddddddddddddddddddddd</p>
           <div className="flex gap-4 my-3">
             <button className="flex justify-center items-center gap-3 bg-white text-black py-2 px-6 text-lg font-semibold rounded hover:opacity-75">
               <FaPlay size={26} />
