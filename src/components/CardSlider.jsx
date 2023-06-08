@@ -11,11 +11,11 @@ const CardSlider = ({ data, title }) => {
     let distanceRight = listRef.current.getBoundingClientRect().x - 70;
     let distanceLeft = listRef.current.getBoundingClientRect().x - 26;
     if (direction === "left" && sliderPosition > 0) {
-      listRef.current.style.transform = `translateX(${230 + distanceLeft}px)`;
+      listRef.current.style.transform = `translateX(${280 + distanceLeft}px)`;
       setSliderPosition(sliderPosition - 1);
     }
-    if (direction === "right" && sliderPosition < 4) {
-      listRef.current.style.transform = `translateX(${-230 + distanceRight}px)`;
+    if (direction === "right" && sliderPosition < 5) {
+      listRef.current.style.transform = `translateX(${-280 + distanceRight}px)`;
       setSliderPosition(sliderPosition + 1);
     }
     console.log(sliderPosition)
@@ -25,7 +25,7 @@ const CardSlider = ({ data, title }) => {
     <div
       onMouseEnter={() => setShowControl(true)}
       onMouseLeave={() => setShowControl(false)}
-      className="text-white flex flex-col gap-5 relative py-11 select-none overflow-x-hidden" 
+      className="text-white flex flex-col gap-5 relative py-11 select-none overflow-x-hidden scrollbar-hiden" 
     >
       <h1 className="ml-12 text-2xl font-bold">{title}</h1>
       <div className="">
@@ -41,7 +41,7 @@ const CardSlider = ({ data, title }) => {
           />
         </div>
         <div
-          className="flex w-max gap-4 translate-x-0 transition duration-300 ease-in-out ml-12"
+          className="flex w-max gap-4 translate-x-0 transition duration-300 ease-in-out ml-12 tablet:gap-2"
           ref={listRef}
         >
           {data.map((movie, index) => {

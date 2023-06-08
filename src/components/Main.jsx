@@ -1,43 +1,58 @@
-import React, {useState } from "react";
-import ReactPlayer from "react-player";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { openMovieDetail } from "../store/index";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { VscMute, VscUnmute } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
-const Main = ({movies}) => {
-  const [isMuted, setIsMuted] = useState(false);
-  
+const Main = ({ data }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const movie = data[Math.floor(Math.random() * data.length)];
+
+  const watchMovie = (movie) => {
+    navigate(`/watch/${movie.type}/${movie.id}`);
+  };
+
+  const handleMovieClick = (movie) => {
+    dispatch(openMovieDetail(movie));
+  };
+
+  const truncateString = (str, num) => {
+    if (str?.length > num) {
+      return str.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  };
   return (
     <div className="w-full h-[650px] text-white">
       <div className="w-full h-full">
-        <ReactPlayer
-          loop={true}
-          playing={true}
-          width="100%"
-          height="100%"
-          volume={1}
-          muted={isMuted}
-          url="https://vimcom/342154301"
+        <div className="absolute w-full h-[650px] bg-gradient-to-r from-black"></div>
+        <img
+          className="w-full h-full object-cover"
+          src={`https://image.tmdb.org/t/p/original/${movie?.image}`}
+          alt={movie?.name}
         />
-        <div className="absolute w-[40%] top-[45%] p-4 md:p-8">
-          <h1 className="text-2xl mb-3 font-bold">{movies.name}</h1>
-          <p>afsdddddddddddddddddddddddddddddddddd</p>
+        <div className="absolute w-[40%] top-[45%] p-4 tablet:w-[60%] tablet:top-[30%]">
+          <h1 className="text-2xl mb-3 font-bold">{movie?.name}</h1>
+          <p>{truncateString(movie?.overview, 150)}</p>
           <div className="flex gap-4 my-3">
-            <button className="flex justify-center items-center gap-3 bg-white text-black py-2 px-6 text-lg font-semibold rounded hover:opacity-75">
+            <button
+              onClick={() => watchMovie(movie)}
+              className="flex justify-center items-center gap-3 bg-white text-black py-2 px-6 text-lg font-semibold rounded hover:opacity-75"
+            >
               <FaPlay size={26} />
               Play
             </button>
-            <button className="flex justify-center items-center gap-3 bg-neutral-500 text-white py-2 px-6 text-lg font-semibold rounded bg-opacity-70 hover:bg-opacity-40">
+            <button
+              onClick={() => handleMovieClick(movie)}
+              className="flex justify-center items-center gap-3 bg-neutral-500 text-white py-2 px-6 text-lg font-semibold rounded bg-opacity-70 hover:bg-opacity-40"
+            >
               <AiOutlineInfoCircle size={32} />
               More Info
             </button>
           </div>
-        </div>
-        <div
-          onClick={() => setIsMuted((prev) => !prev)}
-          className="absolute right-[10%] bottom-[25%] flex justify-center items-center cursor-pointer rounded-full border-white border-2 w-11 h-11 bg-transparent hover:bg-white/[.10]"
-        >
-          {isMuted ? <VscMute size={20} /> : <VscUnmute size={20} />}
         </div>
       </div>
     </div>

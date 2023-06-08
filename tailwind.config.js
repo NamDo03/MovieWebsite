@@ -7,9 +7,12 @@ module.exports = {
       },
       backgroundColor: {
         'netflix': '#141414',
-      }
+      },
+      screens: {
+        'tablet': {'max': '1024px'},
+        'mobile': {'max': '740px'},
+      },
     },
   },
-  plugins: [require('tailwind-scrollbar-hide')],
 }
 
